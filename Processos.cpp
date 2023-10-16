@@ -27,7 +27,9 @@ public:
 		int Quantidade = 0;
 
 		if (EnumProcesses(Identificadores, sizeof(Identificadores), &lpcbNeeded) == NULL)
+		{
 			cout << "Ocorreu um erro ao obter o identificador de processo.\n";
+		}
 		else
 		{
 			Processos = lpcbNeeded / sizeof(DWORD);
@@ -75,7 +77,9 @@ public:
 	{
 		Snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, 0);
 		if (Snapshot == INVALID_HANDLE_VALUE)
-			cout << "Identificador inválido para a operação solicitada.." << GetLastError();
+		{
+			cout << "Identificador invÃ¡lido para a operaÃ§Ã£o solicitada.." << GetLastError();
+		}
 		else
 		{
 			PROCESSENTRY32 Entrada;
@@ -97,7 +101,9 @@ public:
 						CloseHandle(IdentificadorEXE);
 					}
 					else
-						cout << "Não foi possível obter o identificador de processo.." << GetLastError();
+					{
+						cout << "NÃ£o foi possÃ­vel obter o identificador de processo.." << GetLastError();
+					}
 				}
 			} while (Process32Next(Snapshot, &Entrada));
 		}
@@ -108,13 +114,13 @@ public:
 int main()
 {
 
-	cout << "O assistente está verificando processos...\n";
+	cout << "O assistente estÃ¡ verificando processos...\n";
 
-	//Dentro desta função contém outras APIs.
-	//APIs incluídas: Obter o nome de cada processo e local do processo no sistema de arquivos.
+	//Dentro desta funÃ§Ã£o contÃ©m outras APIs.
+	//APIs incluÃ­das: Obter o nome de cada processo e local do processo no sistema de arquivos.
 	Funcoes.EnumerarProcessos();
 
-	//Os nomes de processos diferenciam maiúsculas e minúsculas.
+	//Os nomes de processos diferenciam maiÃºsculas e minÃºsculas.
 	Funcoes.FinalizarProcesso(L"EXCEL.EXE");
 
 	system("pause");
